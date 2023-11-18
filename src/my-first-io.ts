@@ -1,40 +1,25 @@
+// Importa el módulo fs para trabajar con el sistema de archivos.
 const fs = require("fs");
 
-const text: Buffer = fs.readFileSync(process.argv[2]);
-const filas: number = text.toString().split("\n").length - 1;
+// Lee el contenido del archivo especificado en la línea de comandos como una cadena de texto.
+const contenido: string = fs.readFileSync(process.argv[2], "utf8");
 
-console.log(filas);
-
+// Cuenta las líneas del archivo y las muestra en la consola.
+const numeroDeLineas: number = contenido.split("\n").length - 1;
+console.log(numeroDeLineas);
 
 /*
-1. --> const fs = require("fs");
+- fs.readFileSync: Función que lee el contenido de un archivo de manera síncrona, 
+  bloqueando la ejecución hasta que se completa la lectura. 
+  Al especificar "utf8" como segundo argumento, el contenido se lee directamente como una cadena de texto.
 
-require("fs"): Esta es una función de Node.js que importa un módulo. 
-En este caso, se importa el módulo fs, que es el módulo de sistema de archivos de Node.js. 
-Este módulo proporciona funciones para trabajar con archivos y directorios.
+- process.argv[2]: Argumento de la línea de comandos que especifica la ruta del archivo a leer.
 
-2. --> const text = fs.readFileSync(process.argv[2]);
+- contenido.split("\n"): Utiliza el método split para dividir la cadena de texto en un array de líneas, 
+  usando el carácter de salto de línea (\n) como separador.
 
-fs.readFileSync: Es una función del módulo fs que lee el contenido de un archivo de manera síncrona (es decir, el flujo de ejecución se detiene hasta que se completa la lectura del archivo).
-process.argv[2]: Aquí estamos accediendo al tercer elemento del array process.argv, que contiene los argumentos pasados desde la línea de comandos. 
-En este caso, process.argv[2] sería la ruta al archivo que quieres leer. 
-Este valor se pasa como argumento a fs.readFileSync para especificar qué archivo debe leer.
+- .length - 1: Calcula el número de líneas en el archivo. Se resta 1 para ajustar por un posible salto de línea al final del archivo, 
+  evitando contar una línea vacía final.
 
-3. --> const filas = text.toString().split("\n").length - 1;
-
-text.toString(): 
-Convierte el contenido del archivo (originalmente leído como un Buffer) a una cadena de texto (string).
-
-.split("\n"): Divide la cadena de texto en un array, 
-utilizando el carácter de salto de línea (\n) como separador. 
-Esto significa que cada elemento del array es una línea del archivo.
-
-.length: Obtiene la longitud del array, que corresponde al número de elementos (líneas) en él.
-- 1: Se resta 1 porque generalmente un archivo de texto termina con un salto de línea, 
-lo que resultaría en una línea vacía adicional al final del array. 
-Restando 1, se ajusta el conteo al número de líneas de texto reales en el archivo.
-console.log(filas);
-
-En resumen, este script lee un archivo de texto (cuya ruta se pasa como argumento en la línea de comandos), cuenta cuántas líneas tiene y muestra este número en la consola.
-
+Este script lee un archivo de texto (ruta especificada en process.argv[2]), cuenta sus líneas, y muestra este número en la consola.
 */

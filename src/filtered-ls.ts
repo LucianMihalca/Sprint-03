@@ -1,23 +1,24 @@
-//Este módulo proporciona funciones para trabajar con archivos y directorios.
+// Importa el módulo fs para trabajar con el sistema de archivos.
 const fss = require("fs");
 
-//módulo path de Node.js, utilizado para trabajar con rutas de archivos y directorios.
+// Importa el módulo path para manejar rutas de archivos y directorios.
 const path = require("path");
 
-const directorio = process.argv[2]; //  Aquí estamos accediendo al tercer elemento del array process.argv,
-const extension = '.' + process.argv[3]; //  Concatenas un punto . con el cuarto elemento de process.argv, formando así la extensión de archivo que quieres filtrar.
+// Obtiene el directorio y la extensión de los argumentos de la línea de comandos.
+// process.argv[2]: Aquí estamos accediendo al tercer elemento del array, representa el directorio objetivo (es un string).
+const directorio = process.argv[2];
+// process.argv[3]: el cuarto elemento del array, representa la extensión de archivo a filtrar (es un string).
+const extension = "." + process.argv[3];
 
-
-// Usas readdir del módulo fs para leer asincrónicamente el contenido del directorio especificado.
-fss.readdir(directorio, (error:  NodeJS.ErrnoException, archivos: string[]) => {
+// Lee el contenido del directorio de forma asíncrona usando fs.readdir.
+fss.readdir(directorio, (error: NodeJS.ErrnoException, archivos: string[]) => {
   if (error) {
     console.error("Error al leer el directorio:", error);
     return;
   }
 
+  // Filtra y muestra los archivos que coinciden con la extensión dada.
   archivos.forEach((archivo: string) => {
-
-    //  Para cada archivo, utilizamos extname() del módulo path para obtener su extensión. 
     if (path.extname(archivo) === extension) {
       console.log(archivo);
     }
@@ -26,16 +27,16 @@ fss.readdir(directorio, (error:  NodeJS.ErrnoException, archivos: string[]) => {
 
 
 /*
-El método --> readdir() es parte del módulo fs (File System) en Node.js. 
-Es utilizado para leer los contenidos de un directorio, 
-para listar los archivos y subdirectorios que se encuentran dentro de un directorio especificado.
------
-El método --> extname() es parte del módulo path en Node.js. 
-Se utiliza para extraer la extensión de un archivo.
-Uso Común: Se utiliza comúnmente para filtrar archivos por tipo, 
-realizar operaciones específicas basadas en el tipo de archivo, 
-o para manipular nombres de archivos en diversas aplicaciones.
+- readdir() de fs: Lista archivos y subdirectorios en un directorio.
+- extname() de path: Extrae extensiones de archivos.
 
+- process: Objeto global en Node.js para información y control del proceso en ejecución.
+- process.argv: Array de argumentos de la línea de comandos. 
 
-
+Ejemplo de uso:
+  $ node miScript.js arg1 arg2
+  - process.argv[0]: 'node'
+  - process.argv[1]: 'miScript.js'
+  - process.argv[2]: 'arg1'
+  - process.argv[3]: 'arg2'
 */
