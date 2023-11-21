@@ -40,3 +40,15 @@ Este documento ofrece un resumen detallado del ejercicio "HTTP UPPERCASERER", en
 
 ## Conclusión 🤌🏼
 Este ejercicio demuestra la implementación de un servidor HTTP en Node.js que procesa solicitudes POST, utilizando streams para transformar los datos. Refuerza conceptos importantes como la programación asíncrona, el manejo de streams y el desarrollo de servidores HTTP.
+
+
+
+## Dep :
+1. Instalar Jest y ts-jest: npm install --save-dev jest ts-js @types/jest
+2. Generar el Archivo de Configuración: npx ts-jest config:init 
+3. Instalar mock-local-storage: npm install --save-dev mock-local-storage
+
+
+Buscar Tipos Definidos por la Comunidad
+para el ejercico http-uppercaserer hay que intalar estas 
+4. npm install @types/through2-map

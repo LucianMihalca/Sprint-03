@@ -1,5 +1,4 @@
-import { IncomingMessage } from "http";
-const http = require("http");
+import http, { IncomingMessage } from "http";
 
 // Obtiene la URL del argumento de la línea de comandos.
 const url: string = process.argv[2];

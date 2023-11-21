@@ -1,6 +1,5 @@
 // Importaciones necesarias: IncomingMessage para tipar las respuestas HTTP y el módulo http.
-import { IncomingMessage } from "http";
-const http = require("http");
+import http, { IncomingMessage } from "http";
 
 // Función makeHttpRequest: Realiza peticiones HTTP y devuelve una promesa con los datos como texto.
 const makeHttpRequest = async (url: string): Promise<string> => {

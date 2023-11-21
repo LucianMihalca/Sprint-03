@@ -1,5 +1,5 @@
 import { Socket } from "net";
-const net = require("net");
+import net from "net";
 
 // Función para agregar un cero a la izquierda si el número es menor que 10.
 function padZero(num: number): string {

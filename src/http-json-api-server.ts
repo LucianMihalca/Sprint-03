@@ -1,71 +1,82 @@
-import { IncomingMessage, ServerResponse } from "http";
-const http = require("http");
+// 1. Importaciones:
+// Importa tipos para las respuestas y solicitudes HTTP.
+// Importa el módulo http para crear el servidor.
+import http, { IncomingMessage, ServerResponse } from "http";
 
-// Crea un servidor HTTP.
+// 2. Creación del servidor:
 const server = http.createServer((req: IncomingMessage, res: ServerResponse) => {
-  // Verifica si la solicitud es un método GET y tiene una URL.
+  // 2.1. Verificación del método y existencia de la URL en la solicitud:
   if (req.method === "GET" && req.url) {
-    // Analiza la URL y crea un objeto URL para facilitar el acceso a sus partes.
+    // 2.2. Análisis de la URL:
+    // Construye un objeto URL para descomponer la URL de la solicitud.
     const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
+    // Extrae el camino (pathname) y el parámetro 'iso' de la URL.
     const pathname = parsedUrl.pathname;
-    const iso = parsedUrl.searchParams.get('iso'); // Obtiene el parámetro 'iso' de la URL.
+    const iso = parsedUrl.searchParams.get("iso");
 
-    // Verifica si el parámetro 'iso' está presente.
+    // 3. Verificación del parámetro 'iso':
     if (iso) {
-      const date = new Date(iso); // Crea un objeto de fecha con el parámetro 'iso'.
+      // 3.1. Creación de un objeto de fecha a partir del parámetro 'iso'.
+      const date = new Date(iso);
 
-      // Maneja la ruta '/api/parsetime' para devolver la hora, minuto y segundo.
-      if (pathname === '/api/parsetime') {
+      // 4. Rutas API y lógica de respuesta:
+      // 4.1. Ruta '/api/parsetime':
+      if (pathname === "/api/parsetime") {
+        // 4.1.1. Verificación de validez de la fecha:
         if (isNaN(date.getTime())) {
-          // Si la fecha es inválida, envía un error 400.
           res.writeHead(400);
           res.end("Invalid Date");
         } else {
-          // Si la fecha es válida, devuelve la hora, minuto y segundo en formato JSON.
+          // 4.1.2. Creación y envío de la respuesta con hora, minuto y segundo.
           const time = {
             hour: date.getHours(),
             minute: date.getMinutes(),
-            second: date.getSeconds()
+            second: date.getSeconds(),
           };
-          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.writeHead(200, { "Content-Type": "application/json" });
           res.end(JSON.stringify(time));
         }
-      } else if (pathname === '/api/unixtime') {
-        // Maneja la ruta '/api/unixtime' para devolver el tiempo en formato Unix.
+      }
+      // 4.2. Ruta '/api/unixtime':
+      else if (pathname === "/api/unixtime") {
+        // 4.2.1. Verificación de validez de la fecha y envío de tiempo Unix.
         if (isNaN(date.getTime())) {
           res.writeHead(400);
           res.end("Invalid Date");
         } else {
           const unixtime = { unixtime: date.getTime() };
-          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.writeHead(200, { "Content-Type": "application/json" });
           res.end(JSON.stringify(unixtime));
         }
-      } else {
-        // Si la ruta no es reconocida, devuelve un error 404.
+      }
+      // 4.3. Manejo de rutas no reconocidas.
+      else {
         res.writeHead(404);
         res.end();
       }
-    } else {
-      // Si falta el parámetro 'iso', devuelve un error 400.
+    }
+    // 5. Manejo de falta del parámetro 'iso'.
+    else {
       res.writeHead(400);
       res.end("Missing or invalid 'iso' query parameter");
     }
-  } else {
-    // Si el método de la solicitud no es GET, devuelve un error 405.
+  }
+  // 6. Manejo de métodos de solicitud no permitidos.
+  else {
     res.writeHead(405);
     res.end();
   }
 });
 
-// El servidor escucha en el puerto proporcionado por los argumentos de la línea de comandos.
+// 7. Iniciar el servidor para que escuche en el puerto especificado.
 server.listen(Number(process.argv[2]));
 
 /*
-- http.createServer: Crea un servidor HTTP que escucha las solicitudes entrantes.
-- IncomingMessage (req): Objeto que representa la solicitud HTTP entrante.
-- ServerResponse (res): Objeto utilizado para devolver respuestas al cliente.
+- http.createServer: Inicializa y configura un servidor HTTP.
+- IncomingMessage (req): Representa la solicitud HTTP, incluyendo métodos, URL y headers.
+- ServerResponse (res): Proporciona métodos para construir y enviar respuestas HTTP.
 
-- URL y URLSearchParams: Utilizados para analizar y trabajar con la URL de la solicitud.
-
-- Rutas '/api/parsetime' y '/api/unixtime': Proporcionan diferentes representaciones de la fecha y hora basadas en el parámetro 'iso'.
+- URL: Utilizado para analizar la URL de la solicitud y acceder a sus componentes como pathname y parámetros de búsqueda.
+- Rutas API '/api/parsetime' y '/api/unixtime': Manejan solicitudes GET específicas y devuelven información basada en el parámetro 'iso'.
+- server.listen: Pone al servidor a escuchar en el puerto proporcionado por los argumentos de la línea de comandos, permitiendo que el servidor acepte conexiones.
 */

@@ -1,8 +1,7 @@
 // Version 1.0
 
 // Importaciones necesarias: IncomingMessage para tipar las respuestas HTTP y el módulo http.
-import { IncomingMessage } from "http";
-const http = require("http");
+import http, { IncomingMessage } from "http";
 
 // Obtiene la URL del argumento de la línea de comandos.
 const url = process.argv[2];

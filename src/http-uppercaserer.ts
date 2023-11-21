@@ -1,7 +1,7 @@
 // Paso 1: Importar los módulos necesarios.
-import { IncomingMessage, ServerResponse } from "http";
-const http = require("http"); // 'http' para crear el servidor HTTP
-const map = require("through2-map"); //'through2-map' para transformar los streams.
+import http, { IncomingMessage, ServerResponse } from "http"; // 'http' para crear el servidor HTTP
+import map from "through2-map";
+//'through2-map' para transformar los streams.
 
 // Paso 2: Crear el servidor HTTP usando http.createServer.
 // Esta función devuelve una nueva instancia de http.Server.
@@ -20,12 +20,12 @@ const server = http.createServer((req: IncomingMessage, res: ServerResponse) => 
           return chunk.toString().toUpperCase();
         })
       )
-      .pipe(res);  // Paso 6: Enviar la respuesta transformada al cliente.
-      // '.pipe(res)' toma el stream transformado y lo envía al cliente como respuesta HTTP.
+      .pipe(res); // Paso 6: Enviar la respuesta transformada al cliente.
+    // '.pipe(res)' toma el stream transformado y lo envía al cliente como respuesta HTTP.
   } else {
     // Paso 7: Manejar otros métodos HTTP.
     // Si el método no es POST, se configura un código de estado 405 y se finaliza la respuesta.
-    res.statusCode = 405;  // Código de estado HTTP para "Método no permitido".
+    res.statusCode = 405; // Código de estado HTTP para "Método no permitido".
     res.end("Solo se admiten solicitudes POST"); // Mensaje de respuesta enviado al cliente.
   }
 });

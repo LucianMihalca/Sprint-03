@@ -1,7 +1,6 @@
 // Paso 1: Importar los módulos necesarios.
-import { IncomingMessage, ServerResponse } from "http";
-const http = require("http");
-const fs = require("fs");
+import http, { IncomingMessage, ServerResponse } from "http";
+import fs from "fs";
 
 // Paso 2: Crear el servidor HTTP.
 const server = http.createServer((req: IncomingMessage, res: ServerResponse) => {
