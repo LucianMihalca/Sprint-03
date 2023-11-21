@@ -1,6 +1,5 @@
 import fs from "fs";
 import contarLineas from "../my-first-async-io";
-import { error } from "console";
 
 describe("contarLineas", () => {
   const testFilePath = "test.txt";
@@ -12,16 +11,33 @@ describe("contarLineas", () => {
 
   afterEach(() => {
     // Eliminar el archivo de prueba después de cada test
-    fs.unlinkSync(testFilePath);
+    if (fs.existsSync(testFilePath)) {
+      fs.unlinkSync(testFilePath);
+    }
   });
 
-  it("debe contar correctamente el número de líneas en un archivo", async () => {
+  it("debe contar correctamente el número de líneas en un archivo con contenido", async () => {
     await expect(contarLineas(testFilePath)).resolves.toBe(2);
   });
 
-  it("Debería dar un error si el archivo no existe", async () => {
-    await expect(contarLineas("archivoInexistente.ts")).rejects.toThrow("Error al leer el archivo: ENOENT: no such file or directory, open 'archivoInexistente.ts'");
+  it("debe rechazar la promesa con un error cuando se proporciona una ruta vacía", async () => {
+    await expect(contarLineas("")).rejects.toEqual(new Error("Error al leer la ruta"));
   });
-  
-  // Otros tests...
+
+  it("debe devolver 0 para un archivo vacío", async () => {
+    fs.writeFileSync(testFilePath, "");
+    const numLineas = await contarLineas(testFilePath);
+    expect(numLineas).toBe(0);
+  });
+
+  it("debe dar un error al intentar leer un directorio como archivo", async () => {
+    const directoryPath = "test_directory";
+    fs.mkdirSync(directoryPath); // Crear un directorio para la prueba
+    await expect(contarLineas(directoryPath)).rejects.toThrow();
+    fs.rmdirSync(directoryPath); // Limpiar después de la prueba
+  });
+
+  it("debe rechazar la promesa con un error para una ruta vacía", async () => {
+    await expect(contarLineas('')).rejects.toThrow();
+  });
 });
