@@ -1,5 +1,5 @@
 // Importa la función listarMysArchivos del módulo 'mymodule'.
-const listarMysArchivos = require("./mymodule");
+const listarMysArchivos = require("./mymodule")
 
 // Obtiene el directorio y la extensión de los argumentos de la línea de comandos.
 const dir = process.argv[2];

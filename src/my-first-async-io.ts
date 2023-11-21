@@ -5,10 +5,21 @@ import fs from "fs";
 const ruta = process.argv[2];
 
 const contarLineas = (ruta: string) => {
-  return new Promise((resolve, rejects) => {
+  return new Promise((resolve, reject) => {
+    // Verifica si la ruta del archivo ha sido proporcionada
+    // si no se proporciona una ruta o hay algún problema con ella, la función se detiene y no intente leer un archivo inexistente o mal especificado. 
+    if (!ruta) {
+      reject(`Error al leer la ruta`);
+      return;
+    }
     fs.readFile(ruta, "utf8", (error: NodeJS.ErrnoException | null, data: string) => {
       if (error) {
-        rejects(`Error al leer el archivo: ${error}`);
+        reject(`Error al leer el archivo: ${error}`);
+        return;
+      }
+      // Verifica si el archivo está vacío
+      if (data.length === 0) {
+        resolve(0);
         return;
       }
       // Cuenta el número de líneas en el archivo y resuelve con el resultado.
@@ -24,7 +35,7 @@ contarLineas(ruta)
     console.log(numLineas);
   })
   .catch((error) => {
-    console.error(error);
+    console.error(`Error: ${error.message}`);
   });
 export default contarLineas;
 /*

@@ -6,7 +6,7 @@ const makeHttpRequest = async (url: string): Promise<string> => {
   return new Promise<string>((resolve, reject) => {
     // Realiza una petición HTTP GET al URL proporcionado.
     http
-      .get(url, (res: IncomingMessage) => {
+      .get(url, (res: http.IncomingMessage) => {
         res.setEncoding("utf8"); // Configura la codificación de caracteres a UTF-8.
 
         let data = ""; // Almacena los datos recibidos.
