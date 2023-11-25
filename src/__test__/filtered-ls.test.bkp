@@ -1,0 +1,17 @@
+import fs from 'fs';
+import { filtrarArchivos } from '../filtered-ls';
+
+// Mockeamos el módulo fs y especificamos una implementación mock para fs.readdir
+jest.mock('fs', () => ({
+  readdir: jest.fn(),
+}));
+
+describe('filtrarArchivos', () => {
+  beforeEach(() => {
+    // Limpia las implementaciones mock para cada prueba
+    jest.clearAllMocks();
+  });
+
+  
+  
+});

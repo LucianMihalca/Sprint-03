@@ -52,3 +52,5 @@ Este ejercicio demuestra la implementación de un servidor HTTP en Node.js que p
 Buscar Tipos Definidos por la Comunidad
 para el ejercico http-uppercaserer hay que intalar estas 
 4. npm install @types/through2-map
+
+5. npm install dotenv .Cargar las variables de entorno desde un archivo .env, puedes usar el paquete dotenv

@@ -1,25 +1,21 @@
 import http, { IncomingMessage } from "http";
 
-// Obtiene la URL del argumento de la línea de comandos.
-const url: string = process.argv[2];
-
-// Realiza una solicitud GET a la URL especificada.
-http
-  .get(url, (response: IncomingMessage) => {
-    // Configura la codificación de caracteres de la respuesta a UTF-8.
+// Función para realizar una solicitud GET a una URL.
+export function fetchUrl(url: string): void {
+  http.get(url, (response: IncomingMessage) => {
     response.setEncoding("utf8");
 
-    // Escucha el evento 'data' para recibir los datos de la respuesta.
     response.on("data", (chunk: string) => {
-      // Imprime cada fragmento (chunk) de datos recibidos.
       console.log(chunk);
     });
 
-    // Escucha el evento 'error' en la respuesta.
     response.on("error", console.error);
-  })
-  // Escucha el evento 'error' en la solicitud HTTP en caso de problemas con la solicitud.
-  .on("error", console.error);
+  }).on("error", console.error);
+}
+
+// Llamada a la función con la URL proporcionada en la línea de comandos.
+const url: string = process.argv[2];
+fetchUrl(url);
 
 /*
 - http.get: Función del módulo http para realizar una solicitud HTTP GET.
