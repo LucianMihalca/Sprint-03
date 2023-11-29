@@ -106,9 +106,9 @@ Este proyecto viene con varios scripts predefinidos en el archivo package.json:
 
 ### 📂 Index y explicaciones
 
-- ⭐️ Scripts validados por Learnyounode.
-- ⭐️⭐️ Propios scripts de cada ejercicio.
-- ⭐️⭐️⭐️ Realizado con TypeScript y testing.
+1. nivel. ⭐️ Scripts validados por Learnyounode.
+2. nivel. ⭐️⭐️ Propios scripts de cada ejercicio.
+3. nivel. ⭐️⭐️⭐️ Realizado con TypeScript y testing.
 
 ✅ 01. Hello World!
 
