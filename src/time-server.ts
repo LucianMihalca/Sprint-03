@@ -25,12 +25,13 @@ export const timeServer = net.createServer((socket: net.Socket): void => {
 });
 
 // 4. Función para validar el puerto de entrada. Asegura que el puerto esté en el rango aceptable.
-const validatePort = (port: string): void => {
+export const validatePort = (port: string): number | null => {
   const portNumber = parseInt(port);
   if (!port || isNaN(portNumber) || portNumber < 1024 || portNumber > 65535) {
     console.error("Por favor, proporciona un número de puerto válido entre 1024 y 65535.");
-    process.exit(1);
+    return 1; // Devuelve un código de error personalizado
   }
+  return null; // Devuelve null si el puerto es válido
 };
 
 // 5. Determina el puerto del servidor, priorizando una variable de entorno y luego argumentos de línea de comandos.
@@ -50,7 +51,11 @@ timeServer
 
 /* 
    Descripción general del script:
-   
+
+   Este script crea un servidor TCP simple que escucha en un puerto especificado.
+   Cuando un cliente se conecta, el servidor envía la fecha y hora actuales formateadas
+   y luego cierra la conexión.
+
    Este script utiliza el módulo 'net' de Node.js para crear un servidor TCP. El módulo 'net'
    proporciona funcionalidades para trabajar con redes TCP/IP, permitiendo la creación de servidores
    y clientes TCP. TCP, o Protocolo de Control de Transmisión, es un estándar fundamental en
@@ -66,4 +71,3 @@ timeServer
    Este servidor es útil para proporcionar una marca de tiempo simple a cualquier cliente
    que se conecte, demostrando un uso básico de la red TCP con Node.js.
 */
-

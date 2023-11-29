@@ -1,8 +1,8 @@
-import http, { IncomingMessage } from "http";
+import http from "http";
 
 // Función para realizar una solicitud GET a una URL.
 export function fetchUrl(url: string): void {
-  http.get(url, (response: IncomingMessage) => {
+  http.get(url, (response: http.IncomingMessage) => {
     response.setEncoding("utf8");
 
     response.on("data", (chunk: string) => {
