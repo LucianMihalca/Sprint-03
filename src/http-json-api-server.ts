@@ -1,10 +1,10 @@
 // 1. Importaciones:
 // Importa tipos para las respuestas y solicitudes HTTP.
 // Importa el módulo http para crear el servidor.
-import http, { IncomingMessage, ServerResponse } from "http";
+import http from "http";
 
 // 2. Creación del servidor:
-const server = http.createServer((req: IncomingMessage, res: ServerResponse) => {
+const server = http.createServer((req: http.IncomingMessage, res: http.ServerResponse) => {
   // 2.1. Verificación del método y existencia de la URL en la solicitud:
   if (req.method === "GET" && req.url) {
     // 2.2. Análisis de la URL:

@@ -2,7 +2,7 @@
 import fs from "fs";
 
 // Función numeroDeLineas: Calcula el número de líneas en un archivo de texto.
-const numeroDeLineas = (filename: Buffer|string): number => {
+const numeroDeLineas = (filename: Buffer | string): number => {
   // Lee el contenido del archivo especificado y lo pasa a String.
   const text = fs.readFileSync(filename).toString();
   // Divide el text en líneas y cuenta su cantidad, restando 1 para el último salto de línea.
